@@ -1,17 +1,18 @@
-export const GET_ROW_DATA = Symbol('GET_ROW_DATA')
-export const GET_DATA = Symbol('GET_DATA')
+export const SET_COLOR = Symbol('SET_COLOR')
+export const CLEAR_BOARD = Symbol('CLEAR_BOARD')
 
-export const getRowData = (payload) => async (dispatch) => {
+export const setNewColor = (payload) => async (dispatch) => {
+    //payload: {x,y,color}
     dispatch({
-        type: GET_ROW_DATA,
+        type: SET_COLOR,
         payload
     })
 }
 
-export const getData = (payload) => async (dispatch) => {
+export const newBoard = () => async (dispatch) => {
+    //payload: {x,y,color}
     dispatch({
-        type: GET_DATA,
-        payload
+        type: CLEAR_BOARD,
     })
 }
 
