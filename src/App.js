@@ -16,7 +16,7 @@ function App(props) {
       dispatch(newBoard())
       setTurn(0);
     }
-  }, [won, turn])
+  }, [won, turn, props])
 
 
   const onClick = (color) => {
