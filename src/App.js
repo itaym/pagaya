@@ -1,31 +1,40 @@
 import React, { useState, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { setNewColor, newBoard } from "./redux/actions"
+import {connect, useDispatch} from 'react-redux'
+import { setNewColor, newBoard, winBoard, loseBoard } from "./redux/actions"
 
 import './App.css';
 
 function App(props) {
-  let { board, won } = props;
+  let { board, won, color, clickToStart } = props;
   let [turn, setTurn] = useState(0);
+  let dispatch = useDispatch();
 
   useEffect(() => {
     if (turn === 21 || won === 324) {
-      alert(`Game ended!!! You have ${won === 324 ? 'Won' : 'lost'}!!!`);
-      const {dispatch} = props
-
-      dispatch(newBoard())
+      if (won === 324) {
+        dispatch(winBoard());
+      }
+      else {
+        dispatch(loseBoard())
+      }
+      // alert(`Game ended!!! You have ${won === 324 ? 'Won' : 'lost'}!!!`);
+      //
+      // dispatch(newBoard())
       setTurn(0);
     }
   }, [won, turn, props])
 
 
-  const onClick = (color) => {
+  const onClick = (newColor) => {
     return () => {
-      const {dispatch} = props
-
-      dispatch(setNewColor({x: 0, y: 0, color, turn: turn + 1}))
+      if (color === newColor) return;
+      dispatch(setNewColor({x: 0, y: 0, color: newColor, turn: turn + 1}))
       setTurn(turn + 1);
     }
+  }
+  const clickToRestart = () => {
+    dispatch(newBoard())
+    setTurn(0);
   }
   return (
     <div className="App">
@@ -37,7 +46,7 @@ function App(props) {
               return (
                   <div key={`col${indexY}`} className={'single-cube'}
                        style={{background:element.color}}
-                       onClick={onClick(element.color)} />
+                       onClick={!clickToStart ? onClick(element.color) : clickToRestart} />
               )
             })}
           </div>);
