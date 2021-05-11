@@ -63,4 +63,6 @@
   float:left;
   height: 30px;
   width: 30px;
+  width: 30px;
+  /* transition: background 0.5s;*/
 }
