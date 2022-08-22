@@ -17,9 +17,6 @@ function App(props) {
       else {
         dispatch(loseBoard())
       }
-      // alert(`Game ended!!! You have ${won === 324 ? 'Won' : 'lost'}!!!`);
-      //
-      // dispatch(newBoard())
       setTurn(0);
     }
   }, [won, turn, props])
